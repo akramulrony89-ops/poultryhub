@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poultry Hub: Integrated Resource Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'poultry-dark': '#111827', // Dark gray for premium look
+                        'accent-gold': '#FACC15', // Gold accent for contrast
+                        // Defining light, distinct background colors for the cards
+                        'card-broiler': '#F0FAFF', // Very light blue
+                        'card-layer': '#FFF0F3', // Very light pink
+                        'card-sonali': '#FFFBEB', // Very light amber
+                        'card-ration': '#F0FFF4', // Very light green
+                        'card-disease': '#FAF5FF', // Very light violet
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Load Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Ensure the body takes up full height and applies the soft gradient background */
+        html, body {
+            height: 100%;
+            margin: 0;
+            /* Using a light, soft gradient background */
+            background-image: linear-gradient(to bottom right, #eef2ff, #f3e8ff); 
+            font-family: 'Inter', sans-serif;
+            overflow-y: auto; /* Allow scrolling for content on smaller screens */
+        }
+        #app-container {
+            max-width: 1400px;
+            margin: 2rem auto; /* Added 2rem top/bottom margin */
+            padding: 2rem;
+        }
+        /* Custom styles for the card effect, similar to the reference image */
+        .resource-card {
+            transition: all 0.3s ease;
+        }
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="app-container">
+
+        <!-- DEVELOPER INFO BAR (Redesigned UI - Premium Look) -->
+        <div class="bg-poultry-dark text-white text-center py-4 px-8 mb-12 rounded-2xl shadow-2xl transition duration-500 hover:shadow-3xl">
+            <p class="text-xl font-extrabold tracking-wider border-b border-gray-600 pb-2 mb-2">MD AKRAMUL HAQUE</p>
+            <p class="text-sm opacity-90">BCS (LIVESTOCK), DLS, BANGLADESH</p>
+            <p class="text-sm mt-1">Mobile: <a href="tel:01701057143" class="text-accent-gold font-bold hover:text-yellow-400 transition duration-300">01701057143</a></p>
+        </div>
+
+        <!-- MAIN TITLE AREA -->
+        <header class="pb-12 text-center">
+            <h1 class="text-5xl font-extrabold tracking-tight text-gray-800 mb-2">Poultry Hub</h1>
+            <p class="text-xl opacity-80 italic text-gray-600">Your comprehensive portal for poultry management and health.</p>
+        </header>
+
+        <!-- CARD GRID CONTAINER -->
+        <div class="text-2xl font-bold text-gray-800 mb-6 px-4">Key Resources & Tools</div>
+        <div id="cards-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
+            <!-- Cards will be inserted here by JavaScript -->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // --- COLOR and ICON Definitions for DISTINCT CARDS ---
+        const ICONS = {
+            Broiler: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M19 14.5c0 1.25-1.75 3.5-3 3.5s-2.25-1.12-3.5-3.5a5.57 5.57 0 0 1 0-7c1.25-2.38 2.25-3.5 3.5-3.5s3 2.25 3 3.5l-3.5 3.5L19 14.5Z"/><path d="M13.5 10.5h-5c-2.33 0-4.5 1.75-4.5 4v1c0 2.25 2.17 4 4.5 4h5"/><path d="M13.5 10.5v-3.5c0-1.75-1.5-3.5-3.5-3.5"/></svg>`,
+                accent: 'text-cyan-500', 
+                iconBg: 'bg-cyan-50',
+                cardBg: 'bg-card-broiler', // Unique background color
+                button: 'bg-cyan-500 hover:bg-cyan-600'
+            },
+            Layer: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 2C7.5 2 4 8.5 4 13s3.5 9 8 9 8-4.5 8-9-3.5-11-8-11z"/></svg>`,
+                accent: 'text-pink-500', 
+                iconBg: 'bg-pink-50',
+                cardBg: 'bg-card-layer', // Unique background color
+                button: 'bg-pink-500 hover:bg-pink-600'
+            },
+            Sonali: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M7 10l5 5 5-5"/></svg>`,
+                accent: 'text-amber-500', 
+                iconBg: 'bg-amber-50',
+                cardBg: 'bg-card-sonali', // Unique background color
+                button: 'bg-amber-500 hover:bg-amber-600'
+            },
+            Ration: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M12 2V22"/><path d="M7 7.5a6 6 0 0 1 10 0"/><path d="M9 12a3 3 0 0 1 6 0"/><path d="M8.5 17.5a7 7 0 0 1 7 0"/></svg>`,
+                accent: 'text-emerald-500', 
+                iconBg: 'bg-emerald-50',
+                cardBg: 'bg-card-ration', // Unique background color
+                button: 'bg-emerald-500 hover:bg-emerald-600'
+            },
+            Disease: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><circle cx="12" cy="12" r="10"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>`,
+                accent: 'text-violet-500', 
+                iconBg: 'bg-violet-50',
+                cardBg: 'bg-card-disease', // Unique background color
+                button: 'bg-violet-500 hover:bg-violet-600'
+            }
+        };
+
+        // Define the data structure for the five resources, mapping icons
+        const cardsData = [
+            {
+                name: "Commercial Broiler Production",
+                description: "Detailed guides and best practices for commercial broiler farming, covering feeding, housing, and growth management.",
+                url: "https://akramulrony89-ops.github.io/commercialbroiler/",
+                icon: ICONS.Broiler
+            },
+            {
+                name: "Commercial Layer Production",
+                description: "Essential protocols for high-yield egg production, including breed selection, nutrition, and health monitoring for laying hens.",
+                url: "https://akramulrony89-ops.github.io/commerciallayerproduction/",
+                icon: ICONS.Layer
+            },
+            {
+                name: "Sonali Chicken Management",
+                description: "Specific guides for managing Sonali chicken production, focusing on dual-purpose farming techniques and profitability.",
+                url: "https://akramulrony89-ops.github.io/sonali/",
+                icon: ICONS.Sonali
+            },
+            {
+                name: "Poultry Nutrition & Ration",
+                description: "Tools and knowledge for calculating balanced feed rations, optimizing ingredient costs, and ensuring peak bird health.",
+                url: "https://akramulrony89-ops.github.io/poultryration/",
+                icon: ICONS.Ration
+            },
+            {
+                name: "Disease Prevention & Treatment",
+                description: "Comprehensive resource on recognizing, preventing, and treating common poultry diseases and health issues.",
+                url: "https://akramulrony89-ops.github.io/poultrydisease/",
+                icon: ICONS.Disease
+            }
+        ];
+
+        const cardsContainer = document.getElementById('cards-container');
+
+        /**
+         * Renders all resource cards dynamically with distinct colors.
+         */
+        function renderCards() {
+            cardsData.forEach(card => {
+                const cardElement = document.createElement('div');
+                
+                // Card now uses the unique cardBg class
+                cardElement.className = `resource-card p-8 ${card.icon.cardBg} rounded-3xl shadow-xl flex flex-col justify-between h-full border border-gray-100`;
+
+                // Construct the card inner HTML
+                cardElement.innerHTML = `
+                    <div class="mb-8">
+                        <!-- Icon Block - Distinct Color -->
+                        <div class="w-16 h-16 ${card.icon.iconBg} rounded-full flex items-center justify-center p-3 mb-6 shadow-md border-4 border-white ring-2 ${card.icon.accent} ring-opacity-50">
+                            <div class="${card.icon.accent}">
+                                ${card.icon.svg}
+                            </div>
+                        </div>
+
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-800 mb-3">${card.name}</h2>
+                        <p class="text-gray-600 text-base">${card.description}</p>
+                    </div>
+                    
+                    <!-- Action Button - Distinct Color -->
+                    <a href="${card.url}" target="_blank" rel="noopener noreferrer" class="
+                        mt-4
+                        w-auto inline-flex items-center justify-center 
+                        text-white font-semibold 
+                        px-6 py-3 rounded-xl shadow-lg 
+                        ${card.icon.button} transition-all duration-300
+                    ">
+                        Open Resource &rarr;
+                    </a>
+                `;
+
+                cardsContainer.appendChild(cardElement);
+            });
+        }
+
+        // Initialize the dashboard on window load
+        window.onload = function() {
+            renderCards();
+        };
+
+    </script>
+</body>
+</html>
