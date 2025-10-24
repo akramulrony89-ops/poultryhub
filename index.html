@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="cLleHPCZEoYJ2LaKAMHNmTzBR-43CsRZq8HzTeIPwcM" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Poultry Hub: Integrated Resource Dashboard</title>
@@ -24,6 +23,8 @@
                         'card-sonali': '#FFFBEB', // Very light amber
                         'card-ration': '#F0FFF4', // Very light green
                         'card-disease': '#FAF5FF', // Very light violet
+                        'card-duck-planner': '#F5F3FF', // Very light indigo
+                        'card-duck-disease': '#FFF4E6', // Very light orange-peach
                     }
                 }
             }
@@ -116,10 +117,24 @@
                 iconBg: 'bg-violet-50',
                 cardBg: 'bg-card-disease', // Unique background color
                 button: 'bg-violet-500 hover:bg-violet-600'
+            },
+            DuckPlanner: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M4 17c.88 4.3 2.9 6.5 8 6.5s7.12-2.2 8-6.5"/><path d="M7 10h10"/><path d="M4 17a4 4 0 0 1 8 0"/><path d="M12 17a4 4 0 0 1 8 0"/></svg>`,
+                accent: 'text-indigo-500',
+                iconBg: 'bg-indigo-50',
+                cardBg: 'bg-card-duck-planner', // Unique background color
+                button: 'bg-indigo-500 hover:bg-indigo-600'
+            },
+            DuckDisease: {
+                svg: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><path d="M10 20.25a.75.75 0 0 0 .75-.75V15h2.5v4.5a.75.75 0 0 0 1.5 0V15h1.5a.75.75 0 0 0 .75-.75V8.5a.75.75 0 0 0-.75-.75h-8.5a.75.75 0 0 0-.75.75v5.75c0 .414.336.75.75.75h1.5v4.5a.75.75 0 0 0 .75.75Z"/></svg>`,
+                accent: 'text-orange-500',
+                iconBg: 'bg-orange-50',
+                cardBg: 'bg-card-duck-disease', // Unique background color
+                button: 'bg-orange-500 hover:bg-orange-600'
             }
         };
 
-        // Define the data structure for the five resources, mapping icons
+        // Define the data structure for the seven resources
         const cardsData = [
             {
                 name: "Commercial Broiler Production",
@@ -146,10 +161,22 @@
                 icon: ICONS.Ration
             },
             {
-                name: "Disease Prevention & Treatment",
+                name: "Poultry Disease Prevention & Treatment",
                 description: "Comprehensive resource on recognizing, preventing, and treating common poultry diseases and health issues.",
                 url: "https://akramulrony89-ops.github.io/poultrydisease/",
                 icon: ICONS.Disease
+            },
+            {
+                name: "Duck Production Planner",
+                description: "A specialized tool for planning and optimizing duck farming operations, covering timelines and resource allocation.",
+                url: "https://akramulrony89-ops.github.io/duckproductionplanner/",
+                icon: ICONS.DuckPlanner
+            },
+            {
+                name: "Duck Disease Management",
+                description: "Essential guide for identifying and managing health problems specific to duck and waterfowl populations.",
+                url: "https://akramulrony89-ops.github.io/duckdisease/",
+                icon: ICONS.DuckDisease
             }
         ];
 
@@ -162,7 +189,7 @@
             cardsData.forEach(card => {
                 const cardElement = document.createElement('div');
                 
-                // Card now uses the unique cardBg class
+                // Card uses the unique cardBg class
                 cardElement.className = `resource-card p-8 ${card.icon.cardBg} rounded-3xl shadow-xl flex flex-col justify-between h-full border border-gray-100`;
 
                 // Construct the card inner HTML
@@ -203,4 +230,3 @@
     </script>
 </body>
 </html>
-
